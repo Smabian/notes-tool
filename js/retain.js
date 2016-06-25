@@ -10,6 +10,8 @@ $(function(){
             var data = JSON.parse(localStorage.notes);
             data.push(obj);
             localStorage.notes = JSON.stringify(data);
+            console.log(obj);
+            console.log(data);
         },
         getAllNotes: function() {
             return JSON.parse(localStorage.notes);
@@ -20,7 +22,8 @@ $(function(){
     var octopus = {
         addNewNote: function(noteStr) {
             model.add({
-                content: noteStr
+                content: noteStr,
+                date: Date.now()
             });
             view.render();
         },
@@ -52,6 +55,7 @@ $(function(){
             var htmlStr = '';
             octopus.getNotes().forEach(function(note){
                 htmlStr += '<li class="note">'+
+                        '<span class="note-date">' + new Date(note.date).toString() + '</span>' +
                         note.content +
                     '</li>';
             });
